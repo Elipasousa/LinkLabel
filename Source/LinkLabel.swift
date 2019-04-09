@@ -9,11 +9,11 @@
 import UIKit
 
 private class Attribute {
-    let attributeName: String
+    let attributeName: NSAttributedString.Key
     let value: AnyObject
     let range: NSRange
     
-    init(attributeName: String, value: AnyObject, range: NSRange) {
+    init(attributeName: NSAttributedString.Key, value: AnyObject, range: NSRange) {
         self.attributeName = attributeName
         self.value = value
         self.range = range
@@ -40,14 +40,14 @@ public class LinkLabel: UILabel, UIGestureRecognizerDelegate {
     
     private var standardTextAttributes: Array<Attribute> = []
     
-    public var linkTextAttributes: Dictionary<String, AnyObject> {
+    public var linkTextAttributes: Dictionary<NSAttributedString.Key, AnyObject> {
         didSet {
             self.setupAttributes()
         }
     }
     
     //Text attributes displayed when a link has been highlighted
-    public var highlightedLinkTextAttributes: Dictionary<String, AnyObject> {
+    public var highlightedLinkTextAttributes: Dictionary<NSAttributedString.Key, AnyObject> {
         didSet {
             self.setupAttributes()
         }
@@ -82,9 +82,9 @@ public class LinkLabel: UILabel, UIGestureRecognizerDelegate {
                     in: range,
                     options: []) {
                         (attributes, range: NSRange, _) -> Void in
-                        for (attributeName, value): (String, Any) in attributes {
+                        for (attributeName, value): (NSAttributedString.Key, Any) in attributes {
                             
-                            if attributeName == NSLinkAttributeName {
+                            if attributeName == NSAttributedString.Key.link {
                                 if value is NSURL {
                                     let linkAttribute = LinkAttribute(url: value as! NSURL, range: range)
                                     linkAttributes.append(linkAttribute)
@@ -112,11 +112,9 @@ public class LinkLabel: UILabel, UIGestureRecognizerDelegate {
     public weak var interactionDelegate: LinkLabelInteractionDelegate?
     
     override public init(frame: CGRect) {
-        linkTextAttributes = [
-            NSUnderlineStyleAttributeName: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue)]
+        linkTextAttributes = [NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue)]
         
-        highlightedLinkTextAttributes = [
-            NSUnderlineStyleAttributeName: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue)]
+        highlightedLinkTextAttributes = [NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue)]
         
         super.init(frame: frame)
         
@@ -134,11 +132,9 @@ public class LinkLabel: UILabel, UIGestureRecognizerDelegate {
     }
     
     required public init?(coder aDecoder: NSCoder) {
-        linkTextAttributes = [
-            NSUnderlineStyleAttributeName: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue)]
+        linkTextAttributes = [NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue)]
         
-        highlightedLinkTextAttributes = [
-            NSUnderlineStyleAttributeName: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue)]
+        highlightedLinkTextAttributes = [NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue)]
         
         super.init(coder: aDecoder)
         
@@ -161,7 +157,7 @@ public class LinkLabel: UILabel, UIGestureRecognizerDelegate {
         }
         
         //Possible states are began or cancelled
-        if gestureRecognizer.state == UIGestureRecognizerState.began {
+        if gestureRecognizer.state == UIGestureRecognizer.State.began {
             
             let indexOfCharacterTouched = gestureRecognizer.indexOfCharacterTouched(label: self)
             
@@ -179,7 +175,7 @@ public class LinkLabel: UILabel, UIGestureRecognizerDelegate {
         self.highlightedLinkAttribute = nil
     }
     
-    func respondToLinkLabelTapped(gestureRecognizer: UITapGestureRecognizer) {
+    @objc func respondToLinkLabelTapped(gestureRecognizer: UITapGestureRecognizer) {
         if self.linkAttributes.count == 0 {
             return
         }
@@ -213,11 +209,11 @@ public class LinkLabel: UILabel, UIGestureRecognizerDelegate {
         
         for linkAttribute in self.linkAttributes {
             if linkAttribute === self.highlightedLinkAttribute {
-                for (attributeName, value): (String, AnyObject) in self.highlightedLinkTextAttributes {
+                for (attributeName, value): (NSAttributedString.Key, AnyObject) in self.highlightedLinkTextAttributes {
                     mutableAttributedText.addAttribute(attributeName, value: value, range: linkAttribute.range)
                 }
             } else {
-                for (attributeName, value): (String, AnyObject) in self.linkTextAttributes {
+                for (attributeName, value): (NSAttributedString.Key, AnyObject) in self.linkTextAttributes {
                     mutableAttributedText.addAttribute(attributeName, value: value, range: linkAttribute.range)
                 }
             }

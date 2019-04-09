@@ -20,7 +20,7 @@ extension NSMutableAttributedString {
             options: []) {
                 (attributes, range: NSRange, _) -> Void in
                 
-                for (attributeName, _): (String, Any) in attributes {
+                for (attributeName, _): (NSAttributedString.Key, Any) in attributes {
                     self.removeAttribute(attributeName, range: range)
                 }
         }
