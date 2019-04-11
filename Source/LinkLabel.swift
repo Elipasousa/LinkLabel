@@ -112,9 +112,9 @@ public class LinkLabel: UILabel, UIGestureRecognizerDelegate {
     public weak var interactionDelegate: LinkLabelInteractionDelegate?
     
     override public init(frame: CGRect) {
-        linkTextAttributes = [NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue)]
+        linkTextAttributes = [NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue)]
         
-        highlightedLinkTextAttributes = [NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue)]
+        highlightedLinkTextAttributes = [NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue)]
         
         super.init(frame: frame)
         
@@ -132,9 +132,9 @@ public class LinkLabel: UILabel, UIGestureRecognizerDelegate {
     }
     
     required public init?(coder aDecoder: NSCoder) {
-        linkTextAttributes = [NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue)]
+        linkTextAttributes = [NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue)]
         
-        highlightedLinkTextAttributes = [NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue)]
+        highlightedLinkTextAttributes = [NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue)]
         
         super.init(coder: aDecoder)
         

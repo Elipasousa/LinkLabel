@@ -24,12 +24,12 @@ class ViewController: UIViewController, LinkLabelInteractionDelegate {
         attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black, range: fullRange)
         attributedString.addAttribute(NSAttributedString.Key.link, value: URL(string: "https://google.com")!, range: linkRange)
         
-        let linkTextAttributes = [NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue as Int),
+        let linkTextAttributes = [NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue as Int),
             NSAttributedString.Key.foregroundColor: UIColor.green
         ]
         
         let highlightedLinkTextAttributes = [
-            NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue as Int),
+            NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue as Int),
             NSAttributedString.Key.foregroundColor: UIColor.red
         ]
         
